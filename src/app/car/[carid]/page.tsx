@@ -1,9 +1,22 @@
 'use client';
 
 import { useRouter } from 'next/navigation';
+import DashboardLayout from '@/app/dashboard/layout';
+import styles from './Car.module.scss';
 
 export default function CarId({ params }: { params: { carid: string } }) {
-  const {} = useRouter();
+  const { push, replace } = useRouter();
 
-  return <div>My Post: {params.carid}</div>;
+  return (
+    <DashboardLayout>
+      My Post: {params.carid}
+      <br />
+      <button className={styles.button} onClick={() => push('/')}>
+        push
+      </button>
+      <button className={styles.button} onClick={() => replace('/')}>
+        replace
+      </button>
+    </DashboardLayout>
+  );
 }

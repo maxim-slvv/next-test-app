@@ -1,7 +1,7 @@
 'use client';
 
 import { NextPage } from 'next';
-import { usePathname, useRouter, useSearchParams } from 'next/navigation';
+import { useSearchParams } from 'next/navigation';
 
 interface Props {}
 
