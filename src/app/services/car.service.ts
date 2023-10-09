@@ -1,9 +1,9 @@
 import axios from 'axios';
 import { ICar } from '../interfaces/pet.interface';
 
-const API_URL = 'https://petstore.swagger.io/v2/';
+const API = process.env.API_URL;
 
-axios.defaults.baseURL = 'API_URL';
+axios.defaults.baseURL = API;
 
 export const CarService = {
   async getDevil() {
