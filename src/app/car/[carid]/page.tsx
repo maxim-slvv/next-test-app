@@ -1,13 +1,16 @@
+'use client';
+
 import { notFound, useRouter } from 'next/navigation';
 import DashboardLayout from '@/app/dashboard/layout';
 import styles from './Car.module.scss';
+import { useCount } from '@/store/useCount';
+import { useEffect, useState } from 'react';
 
-export async function generateMetadata({ params }: { params: { carid: string } }) {
-  return {
-    title: params.carid,
-  };
-}
-
+// export async function generateMetadata({ params }: { params: { carid: string } }) {
+//   return {
+//     title: params.carid,
+//   };
+// }
 export default function CarId({ params }: { params: { carid: string } }) {
   // const { push, replace } = useRouter();
 
@@ -15,9 +18,36 @@ export default function CarId({ params }: { params: { carid: string } }) {
     notFound();
   }
 
+  const { count, countPlus, countMinus, checkAsync } = useCount((state) => ({
+    count: state.count,
+    countPlus: state.countPlus,
+    countMinus: state.countMinus,
+    checkAsync: state.checkAsync,
+  }));
+
+  const [session, setSession] = useState<number>();
+  useEffect(() => {
+    setSession(count);
+  }, [count]);
+
   return (
     <DashboardLayout>
-      My Post: {params.carid}
+      <div>{session}</div>
+      <br />
+      <button className={styles.button} onClick={() => countPlus()}>
+        PLUS
+      </button>
+      <button className={styles.button} onClick={() => countMinus()}>
+        MINUS
+      </button>
+      <br />
+      <button className={styles.button} onClick={() => checkAsync()}>
+        Check
+      </button>
+      <br />
+      <br />
+      <br />
+      {/* My Post: {params.carid}
       <br />
       <button
         className={styles.button}
@@ -30,7 +60,7 @@ export default function CarId({ params }: { params: { carid: string } }) {
         // onClick={() => replace('/')}
       >
         replace
-      </button>
+      </button> */}
     </DashboardLayout>
   );
 }
